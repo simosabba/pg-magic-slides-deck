@@ -14,7 +14,7 @@ export function MainTemplate({ children }: MainTemplateProps) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col justify-start px-24 pt-10">
+      <div className="flex flex-1 flex-col justify-start pr-24 pl-52 pt-10">
         {children}
       </div>
 
