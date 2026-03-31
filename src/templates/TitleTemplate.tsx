@@ -19,7 +19,7 @@ export function TitleTemplate({ children }: TitleTemplateProps) {
       </div>
 
       {/* Bottom decoration */}
-      <div className="px-20 pb-12">
+      <div className="pb-12 pl-[378px] pr-20">
         <div className="h-1.5 w-full bg-[var(--color-slide-dark)]" />
       </div>
     </div>
