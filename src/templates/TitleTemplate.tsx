@@ -8,7 +8,7 @@ export function TitleTemplate({ children }: TitleTemplateProps) {
   return (
     <div className="flex h-full w-full flex-col bg-[var(--color-slide-yellow)]">
       {/* Top decoration */}
-      <div className="flex items-center gap-8 px-20 pt-12">
+      <div className="flex items-center gap-[250px] px-20 pt-12">
         <div className="h-1.5 w-12 bg-[var(--color-slide-dark)]" />
         <div className="h-1.5 flex-1 bg-[var(--color-slide-dark)]" />
       </div>
