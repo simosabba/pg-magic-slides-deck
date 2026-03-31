@@ -21,7 +21,7 @@ export function SlideContainer({
     >
       <SlideNavigation currentSlide={slideNumber} totalSlides={totalSlides} />
       <SlideToolbar />
-      <div className="flex flex-1">{children}</div>
+      <div className="flex min-h-0 flex-1">{children}</div>
     </div>
   )
 }
