@@ -6,7 +6,7 @@ interface SlideTitleProps {
 
 export function SlideTitle({ children }: SlideTitleProps) {
   return (
-    <h1 className="slide-title inline-block bg-black px-2 text-5xl font-bold leading-tight text-white">
+    <h1 className="text-6xl font-extrabold leading-tight text-slide-dark">
       {children}
     </h1>
   )
