@@ -1,11 +1,10 @@
 import type { ReactNode } from "react"
 
 interface DarkTemplateProps {
-  title: ReactNode
-  subtitle?: ReactNode
+  children: ReactNode
 }
 
-export function DarkTemplate({ title, subtitle }: DarkTemplateProps) {
+export function DarkTemplate({ children }: DarkTemplateProps) {
   return (
     <div className="flex h-full w-full flex-col bg-[var(--color-slide-gray)]">
       {/* Top accent */}
@@ -15,12 +14,7 @@ export function DarkTemplate({ title, subtitle }: DarkTemplateProps) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col justify-center px-16">
-        <h1 className="text-6xl font-extrabold leading-tight text-white">
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="mt-6 text-xl text-white">{subtitle}</p>
-        )}
+        {children}
       </div>
     </div>
   )

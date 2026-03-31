@@ -1,11 +1,10 @@
 import type { ReactNode } from "react"
 
 interface BulletTemplateProps {
-  title: ReactNode
-  bullets: ReactNode[]
+  children: ReactNode
 }
 
-export function BulletTemplate({ title, bullets }: BulletTemplateProps) {
+export function BulletTemplate({ children }: BulletTemplateProps) {
   return (
     <div className="flex h-full w-full flex-col bg-white">
       {/* Top decoration */}
@@ -16,20 +15,7 @@ export function BulletTemplate({ title, bullets }: BulletTemplateProps) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col justify-start px-16 pt-10">
-        <h1 className="text-6xl font-extrabold leading-tight text-[var(--color-slide-dark)]">
-          {title}
-        </h1>
-        <ul className="mt-10 space-y-6">
-          {bullets.map((bullet, i) => (
-            <li
-              key={i}
-              className="flex items-baseline gap-4 text-xl text-[var(--color-slide-dark)]"
-            >
-              <span className="text-2xl leading-none">&#xB7;</span>
-              <span>{bullet}</span>
-            </li>
-          ))}
-        </ul>
+        {children}
       </div>
 
       {/* Bottom decoration */}

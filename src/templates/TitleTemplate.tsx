@@ -1,11 +1,10 @@
 import type { ReactNode } from "react"
 
 interface TitleTemplateProps {
-  title: ReactNode
-  subtitle?: ReactNode
+  children: ReactNode
 }
 
-export function TitleTemplate({ title, subtitle }: TitleTemplateProps) {
+export function TitleTemplate({ children }: TitleTemplateProps) {
   return (
     <div className="flex h-full w-full flex-col bg-[var(--color-slide-yellow)]">
       {/* Top decoration */}
@@ -16,14 +15,7 @@ export function TitleTemplate({ title, subtitle }: TitleTemplateProps) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col justify-center px-16">
-        <h1 className="text-7xl font-extrabold text-[var(--color-slide-dark)]">
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="mt-10 text-2xl text-[var(--color-slide-dark)]">
-            {subtitle}
-          </p>
-        )}
+        {children}
       </div>
 
       {/* Bottom decoration */}
