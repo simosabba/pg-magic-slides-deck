@@ -17,8 +17,13 @@ export function SplitTemplate({ children, rightContent }: SplitTemplateProps) {
       <div className="w-px bg-[var(--color-slide-dark)]/15" />
 
       {/* Right panel - yellow */}
-      <div className="flex w-[35%] flex-col justify-center bg-[var(--color-slide-yellow)] px-10 py-12">
-        {rightContent}
+      <div className="flex w-[35%] flex-col bg-[var(--color-slide-yellow)] px-10 py-12">
+        <div className="flex flex-1 flex-col justify-center">
+          {rightContent}
+        </div>
+        <div className="mt-auto">
+          <div className="h-1.5 w-12 bg-[var(--color-slide-dark)]" />
+        </div>
       </div>
     </div>
   )
