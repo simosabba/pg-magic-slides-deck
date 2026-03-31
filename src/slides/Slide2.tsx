@@ -5,13 +5,14 @@ import {
   FadeIn,
   HighlightText,
 } from "../components/slides"
+import { MainTemplate } from "../templates/MainTemplate"
 
 export function Slide2() {
   const [titleDone, setTitleDone] = useState(false)
   const handleTitle = useCallback(() => setTitleDone(true), [])
 
   return (
-    <div className="flex flex-col justify-center">
+    <MainTemplate>
       <SlideTitle>
         <Typewriter
           text="Ut Enim Ad Minim"
@@ -46,6 +47,6 @@ export function Slide2() {
           </FadeIn>
         </div>
       )}
-    </div>
+    </MainTemplate>
   )
 }

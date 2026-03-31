@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react"
 import { SlideTitle, Typewriter, FadeIn } from "../components/slides"
+import { TitleTemplate } from "../templates/TitleTemplate"
 
 export function Slide1() {
   const [line1Done, setLine1Done] = useState(false)
@@ -8,7 +9,7 @@ export function Slide1() {
   const handleLine2 = useCallback(() => setLine2Done(true), [])
 
   return (
-    <div className="flex flex-col justify-center">
+    <TitleTemplate>
       <SlideTitle>
         <Typewriter text="Lorem Ipsum" delay={90} onComplete={handleLine1} />
       </SlideTitle>
@@ -34,6 +35,6 @@ export function Slide1() {
           </p>
         </FadeIn>
       )}
-    </div>
+    </TitleTemplate>
   )
 }

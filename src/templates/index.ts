@@ -1,4 +1,4 @@
 export { TitleTemplate } from "./TitleTemplate"
-export { BulletTemplate } from "./BulletTemplate"
+export { MainTemplate } from "./MainTemplate"
 export { SplitTemplate } from "./SplitTemplate"
 export { DarkTemplate } from "./DarkTemplate"

@@ -5,13 +5,14 @@ import {
   FadeIn,
   HighlightText,
 } from "../components/slides"
+import { SplitTemplate } from "../templates/SplitTemplate"
 
 export function Slide3() {
   const [titleDone, setTitleDone] = useState(false)
   const handleTitle = useCallback(() => setTitleDone(true), [])
 
   return (
-    <div className="flex flex-col justify-center">
+    <SplitTemplate>
       <SlideTitle>
         <Typewriter
           text="Sed Ut Perspiciatis"
@@ -70,6 +71,6 @@ export function Slide3() {
           </FadeIn>
         </div>
       )}
-    </div>
+    </SplitTemplate>
   )
 }

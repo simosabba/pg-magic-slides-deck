@@ -1,10 +1,10 @@
 import type { ReactNode } from "react"
 
-interface BulletTemplateProps {
+interface MainTemplateProps {
   children: ReactNode
 }
 
-export function BulletTemplate({ children }: BulletTemplateProps) {
+export function MainTemplate({ children }: MainTemplateProps) {
   return (
     <div className="flex h-full w-full flex-col bg-white">
       {/* Top decoration */}
