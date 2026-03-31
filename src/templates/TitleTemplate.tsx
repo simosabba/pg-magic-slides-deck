@@ -14,7 +14,7 @@ export function TitleTemplate({ children }: TitleTemplateProps) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col justify-center px-24">
+      <div className="flex flex-1 flex-col justify-center pr-24 pl-[378px]">
         {children}
       </div>
 
