@@ -6,7 +6,7 @@ interface DarkTemplateProps {
 
 export function DarkTemplate({ children }: DarkTemplateProps) {
   return (
-    <div className="flex h-full w-full flex-col bg-[var(--color-slide-gray)]">
+    <div className="flex h-full w-full flex-col bg-[var(--color-slide-gray)] text-white">
       {/* Top accent */}
       <div className="px-12 pt-8">
         <div className="h-1.5 w-12 bg-white" />
