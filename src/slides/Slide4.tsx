@@ -13,9 +13,11 @@ export function Slide4() {
 
   return (
     <MainTemplate>
-      <SlideTitle>TODO</SlideTitle>
+      <SlideTitle>pgvector: Ricerca Semantica</SlideTitle>
       <SlideSubtitle>
-        <strong>Ricetta #3: TODO</strong> — TODO
+        <strong>Ricetta #3: Il Sommelier</strong> — Non cerchi per parola
+        esatta, ma per significato. PostgreSQL con pgvector confronta embedding
+        vettoriali e trova i documenti semanticamente più vicini alla tua query.
       </SlideSubtitle>
 
       {isVisible(1) && (
@@ -24,7 +26,23 @@ export function Slide4() {
             Ingredienti
           </h3>
           <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
-            <li>TODO</li>
+            <li>
+              <HighlightText>pgvector</HighlightText> — estensione che aggiunge
+              il tipo <HighlightText>vector(N)</HighlightText> e operatori di
+              distanza
+            </li>
+            <li>
+              <HighlightText>{"<->"}</HighlightText> — operatore di distanza L2
+              (euclidea) tra due vettori
+            </li>
+            <li>
+              <HighlightText>all-MiniLM-L6-v2</HighlightText> — modello di
+              embedding che converte testo in vettori a 384 dimensioni
+            </li>
+            <li>
+              <HighlightText>JOIN relazionali</HighlightText> — per combinare
+              similarità vettoriale con filtri su dati strutturati
+            </li>
           </ul>
         </FadeIn>
       )}
@@ -35,7 +53,22 @@ export function Slide4() {
             Preparazione
           </h3>
           <ul className="mt-2 list-disc pl-6 space-y-2 text-2xl text-slide-dark">
-            <li>TODO</li>
+            <li>
+              Generare un embedding dal testo di ricerca con un modello (384
+              dimensioni)
+            </li>
+            <li>
+              Eseguire una query top-k: ordinare per distanza L2 (
+              <HighlightText>{"<->"}</HighlightText>) e limitare i risultati
+            </li>
+            <li>
+              Hybrid search: combinare{" "}
+              <HighlightText>ORDER BY</HighlightText> vettoriale con{" "}
+              <HighlightText>JOIN</HighlightText> e{" "}
+              <HighlightText>WHERE</HighlightText> su colonne relazionali (es.
+              filtrare per stack tecnologico e ordinare per similarità
+              semantica)
+            </li>
           </ul>
         </FadeIn>
       )}
