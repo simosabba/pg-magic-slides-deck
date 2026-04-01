@@ -4,17 +4,9 @@ import { FadeIn } from "#/components/effects/FadeIn"
 import { HighlightText } from "#/components/effects/HighlightText"
 import { useSlideSteps } from "#/hooks/useSlideSteps"
 import { Button } from "#/components/ui/button"
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-} from "#/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent } from "#/components/ui/dialog"
 import { CodeEditor } from "#/components/ui-extensions/CodeEditor"
-import {
-  slide3Files,
-  slide3Contents,
-  slide3DefaultFile,
-} from "./code/slide3"
+import { slide3Files, slide3Contents, slide3DefaultFile } from "./code/slide3"
 
 export function Slide3() {
   const { isVisible } = useSlideSteps(3)
@@ -39,20 +31,20 @@ export function Slide3() {
               JSON, con supporto a operatori e indici
             </li>
             <li>
-              <HighlightText>{"->"} / {"->>"}</HighlightText> — navigazione nei
-              path annidati (<HighlightText>{"->"}
-              </HighlightText> restituisce JSONB,{" "}
-              <HighlightText>{"->>"}
-              </HighlightText> restituisce text)
+              <HighlightText>
+                {"->"} / {"->>"}
+              </HighlightText>{" "}
+              — navigazione nei path annidati (
+              <HighlightText>{"->"}</HighlightText> restituisce JSONB,{" "}
+              <HighlightText>{"->>"}</HighlightText> restituisce text)
             </li>
             <li>
               <HighlightText>@&gt;</HighlightText> — operatore di containment
               per filtrare array e oggetti
             </li>
             <li>
-              <HighlightText>GIN index</HighlightText> — Generalized Inverted
-              Index, indicizza ogni chiave/valore del documento per query
-              efficienti
+              <HighlightText>B-tree index</HighlightText> — indice su
+              espressioni JSONB per accelerare le query sui path più usati
             </li>
           </ul>
         </FadeIn>
@@ -73,10 +65,10 @@ export function Slide3() {
               Navigare campi nested con la sintassi a frecce:{" "}
               <HighlightText>{"metadata->'repo'->>'name'"}</HighlightText>
             </li>
-<li>
-              Creare un <HighlightText>indice GIN</HighlightText> sulla colonna
-              per rendere tutte queste query performanti senza indici dedicati
-              per ogni path
+            <li>
+              Creare un <HighlightText>indice B-tree</HighlightText> su
+              un&apos;espressione JSONB per accelerare le query su path
+              specifici
             </li>
           </ul>
         </FadeIn>
@@ -87,18 +79,18 @@ export function Slide3() {
             <DialogTrigger asChild>
               <Button>SHOW ME THE CODE</Button>
             </DialogTrigger>
-          <DialogContent
-            showCloseButton
-            closeButtonClassName="text-white hover:bg-white/10 hover:text-white"
-            className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
-          >
-            <CodeEditor
-              files={slide3Files}
-              contents={slide3Contents}
-              defaultSelectedFile={slide3DefaultFile}
-              className="h-full w-full rounded-xl border-0"
-            />
-          </DialogContent>
+            <DialogContent
+              showCloseButton
+              closeButtonClassName="text-white hover:bg-white/10 hover:text-white top-[2px] right-[2px]"
+              className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
+            >
+              <CodeEditor
+                files={slide3Files}
+                contents={slide3Contents}
+                defaultSelectedFile={slide3DefaultFile}
+                className="h-full w-full rounded-xl border-0"
+              />
+            </DialogContent>
           </Dialog>
         </FadeIn>
       )}

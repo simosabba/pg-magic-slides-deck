@@ -4,17 +4,9 @@ import { FadeIn } from "#/components/effects/FadeIn"
 import { HighlightText } from "#/components/effects/HighlightText"
 import { useSlideSteps } from "#/hooks/useSlideSteps"
 import { Button } from "#/components/ui/button"
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-} from "#/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent } from "#/components/ui/dialog"
 import { CodeEditor } from "#/components/ui-extensions/CodeEditor"
-import {
-  slide2Files,
-  slide2Contents,
-  slide2DefaultFile,
-} from "./code/slide2"
+import { slide2Files, slide2Contents, slide2DefaultFile } from "./code/slide2"
 
 export function Slide2() {
   const { isVisible } = useSlideSteps(3)
@@ -23,9 +15,9 @@ export function Slide2() {
     <MainTemplate>
       <SlideTitle>LISTEN / NOTIFY: Pub/Sub nativo</SlideTitle>
       <SlideSubtitle>
-        <strong>Ricetta #1: Il Passa-Comande</strong> — Un sistema pub/sub integrato in
-        PostgreSQL. Niente broker esterni: il database gestisce la messaggistica
-        in tempo reale.
+        <strong>Ricetta #1: Il Passa-Comande</strong> — Un sistema pub/sub
+        integrato in PostgreSQL. Niente broker esterni: il database gestisce la
+        messaggistica in tempo reale.
       </SlideSubtitle>
 
       {isVisible(1) && (
@@ -86,18 +78,18 @@ export function Slide2() {
             <DialogTrigger asChild>
               <Button>SHOW ME THE CODE</Button>
             </DialogTrigger>
-          <DialogContent
-            showCloseButton
-            closeButtonClassName="text-white hover:bg-white/10 hover:text-white"
-            className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
-          >
-            <CodeEditor
-              files={slide2Files}
-              contents={slide2Contents}
-              defaultSelectedFile={slide2DefaultFile}
-              className="h-full w-full rounded-xl border-0"
-            />
-          </DialogContent>
+            <DialogContent
+              showCloseButton
+              closeButtonClassName="text-white hover:bg-white/10 hover:text-white top-[2px] right-[2px]"
+              className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
+            >
+              <CodeEditor
+                files={slide2Files}
+                contents={slide2Contents}
+                defaultSelectedFile={slide2DefaultFile}
+                className="h-full w-full rounded-xl border-0"
+              />
+            </DialogContent>
           </Dialog>
         </FadeIn>
       )}
