@@ -6,16 +6,11 @@ export const slide2Files: FileNode[] = [
     children: [
       {
         name: "bus",
-        children: [
-          { name: "publisher.ts" },
-          { name: "subscriber.ts" },
-        ],
+        children: [{ name: "publisher.ts" }, { name: "subscriber.ts" }],
       },
       {
         name: "db",
-        children: [
-          { name: "client.ts" },
-        ],
+        children: [{ name: "client.ts" }, { name: "schema.ts" }],
       },
     ],
   },
@@ -23,7 +18,6 @@ export const slide2Files: FileNode[] = [
 
 export const slide2Contents: Record<string, string> = {
   "src/bus/publisher.ts": `import { sql } from "drizzle-orm";
-import { closeDb } from "../../db/client";
 import { db } from "../../db/drizzle";
 import { events } from "../../db/schema/01-events";
 
@@ -57,16 +51,7 @@ async function main(): Promise<void> {
     developerId: "55555555-5555-5555-5555-555555555555",
     at: new Date().toISOString(),
   });
-}
-
-main()
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await closeDb();
-  });`,
+}`,
 
   "src/bus/subscriber.ts": `import { pool } from "../../db/client";
 
@@ -92,31 +77,28 @@ async function main(): Promise<void> {
 
   await client.query(\`LISTEN \${CHANNEL}\`);
   console.log(\`Listening on channel: \${CHANNEL}\`);
-
-  const shutdown = async () => {
-    console.log("\\nStopping subscriber...");
-    client.release();
-    await pool.end();
-    process.exit(0);
-  };
-
-  process.on("SIGINT", shutdown);
-  process.on("SIGTERM", shutdown);
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});`,
+}`,
 
   "src/db/client.ts": `import 'dotenv/config';
-import { Pool, type QueryResultRow } from 'pg';
+import { Pool } from 'pg';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
 const DATABASE_URL = process.env.DATABASE_URL ?? 'postgres://postgres:postgres@localhost:5432/pg_magic';
 
 export const pool = new Pool({
   connectionString: DATABASE_URL,
   max: 10
+});
+
+export const db = drizzle(pool);`,
+
+  "src/db/schema.ts": `import { uuid, jsonb, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+
+export const events = pgTable('events', {
+  id: uuid('id').primaryKey(),
+  channel: text('channel').notNull(),
+  payload: jsonb('payload').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull()
 });`,
 }
 

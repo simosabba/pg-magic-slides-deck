@@ -17,7 +17,7 @@ import {
 } from "./code/slide2"
 
 export function Slide2() {
-  const { isVisible } = useSlideSteps(2)
+  const { isVisible } = useSlideSteps(3)
 
   return (
     <MainTemplate>
@@ -30,10 +30,10 @@ export function Slide2() {
 
       {isVisible(1) && (
         <FadeIn delay={200} className="mt-10">
-          <h3 className="mb-3 text-xl font-semibold text-black/90">
+          <h3 className="mb-3 text-xl font-semibold text-slide-dark">
             Ingredienti
           </h3>
-          <ul className="space-y-2 text-2xl text-black/80">
+          <ul className="space-y-2 text-2xl text-slide-dark">
             <li>
               <HighlightText>LISTEN</HighlightText> — registra un client su un
               canale di notifica
@@ -56,10 +56,10 @@ export function Slide2() {
 
       {isVisible(2) && (
         <FadeIn delay={200} className="mt-8">
-          <h3 className="mb-3 text-xl font-semibold text-black/90">
+          <h3 className="mb-3 text-xl font-semibold text-slide-dark">
             Preparazione
           </h3>
-          <ul className="mt-2 space-y-2 text-2xl text-black/80">
+          <ul className="mt-2 space-y-2 text-2xl text-slide-dark">
             <li>
               Il subscriber apre una connessione dedicata (non pooled) e esegue{" "}
               <HighlightText>LISTEN channel</HighlightText>
@@ -80,18 +80,15 @@ export function Slide2() {
           </ul>
         </FadeIn>
       )}
-      <div className="mt-auto pb-4">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              variant="outline"
-              className="border-[var(--color-slide-dark)] text-[var(--color-slide-dark)] hover:bg-[var(--color-slide-dark)] hover:text-white"
-            >
-              SHOW ME THE CODE
-            </Button>
-          </DialogTrigger>
+      {isVisible(3) && (
+        <FadeIn delay={200} className="mt-8 flex justify-center">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>SHOW ME THE CODE</Button>
+            </DialogTrigger>
           <DialogContent
             showCloseButton
+            closeButtonClassName="text-white hover:bg-white/10 hover:text-white"
             className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
           >
             <CodeEditor
@@ -101,8 +98,9 @@ export function Slide2() {
               className="h-full w-full rounded-xl border-0"
             />
           </DialogContent>
-        </Dialog>
-      </div>
+          </Dialog>
+        </FadeIn>
+      )}
     </MainTemplate>
   )
 }
