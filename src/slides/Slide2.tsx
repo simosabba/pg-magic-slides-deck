@@ -33,7 +33,7 @@ export function Slide2() {
           <h3 className="mb-3 text-xl font-semibold text-slide-dark">
             Ingredienti
           </h3>
-          <ul className="space-y-2 text-2xl text-slide-dark">
+          <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
             <li>
               <HighlightText>LISTEN</HighlightText> — registra un client su un
               canale di notifica
@@ -59,7 +59,7 @@ export function Slide2() {
           <h3 className="mb-3 text-xl font-semibold text-slide-dark">
             Preparazione
           </h3>
-          <ul className="mt-2 space-y-2 text-2xl text-slide-dark">
+          <ul className="mt-2 list-disc pl-6 space-y-2 text-2xl text-slide-dark">
             <li>
               Il subscriber apre una connessione dedicata (non pooled) e esegue{" "}
               <HighlightText>LISTEN channel</HighlightText>

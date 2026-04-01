@@ -33,7 +33,7 @@ export function Slide3() {
           <h3 className="mb-3 text-xl font-semibold text-slide-dark">
             Ingredienti
           </h3>
-          <ul className="space-y-2 text-2xl text-slide-dark">
+          <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
             <li>
               <HighlightText>JSONB</HighlightText> — tipo binario per documenti
               JSON, con supporto a operatori e indici
@@ -63,7 +63,7 @@ export function Slide3() {
           <h3 className="mb-3 text-xl font-semibold text-slide-dark">
             Preparazione
           </h3>
-          <ul className="mt-2 space-y-2 text-2xl text-slide-dark">
+          <ul className="mt-2 list-disc pl-6 space-y-2 text-2xl text-slide-dark">
             <li>
               Definire una colonna{" "}
               <HighlightText>metadata jsonb NOT NULL</HighlightText> sulla
@@ -73,19 +73,7 @@ export function Slide3() {
               Navigare campi nested con la sintassi a frecce:{" "}
               <HighlightText>{"metadata->'repo'->>'name'"}</HighlightText>
             </li>
-            <li>
-              Filtrare array con containment:{" "}
-              <HighlightText>
-                {"metadata->'tags' @> '[\"postgis\"]'::jsonb"}
-              </HighlightText>
-            </li>
-            <li>
-              Attraversare strutture profonde:{" "}
-              <HighlightText>
-                {"metadata->'ci'->'pipeline'->>'status'"}
-              </HighlightText>
-            </li>
-            <li>
+<li>
               Creare un <HighlightText>indice GIN</HighlightText> sulla colonna
               per rendere tutte queste query performanti senza indici dedicati
               per ogni path
