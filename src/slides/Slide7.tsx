@@ -1,73 +1,64 @@
-import { useState, useCallback } from "react"
-import { SlideTitle } from "../components/slides"
+import { SlideTitle, SlideSubtitle } from "../components/slides"
 import { SplitTemplate } from "../templates/SplitTemplate"
-import { Typewriter } from "#/components/effects/Typewriter"
 import { FadeIn } from "#/components/effects/FadeIn"
 import { HighlightText } from "#/components/effects/HighlightText"
+import { useSlideSteps } from "#/hooks/useSlideSteps"
 
 export function Slide7() {
-  const [titleDone, setTitleDone] = useState(false)
-  const handleTitle = useCallback(() => setTitleDone(true), [])
+  const { isVisible } = useSlideSteps(2)
 
   return (
-    <SplitTemplate>
-      <SlideTitle>
-        <Typewriter
-          text="Sed Ut Perspiciatis"
-          delay={70}
-          onComplete={handleTitle}
-        />
-      </SlideTitle>
-
-      {titleDone && (
-        <div className="mt-10 grid grid-cols-2 gap-8">
-          <FadeIn delay={200}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Nemo enim</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-                fugit.
-              </p>
-            </div>
+    <SplitTemplate
+      rightContent={
+        isVisible(2) ? (
+          <FadeIn delay={200} className="flex flex-col items-center gap-6">
+            <p className="text-2xl font-semibold text-slide-dark">
+              WTF, you&apos;ve got to be kidding me
+            </p>
+            <a
+              href="http://localhost:3999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-3xl font-bold text-blue-600 underline hover:text-blue-800"
+            >
+              Provare per credere →
+            </a>
+            <a
+              href="https://planetscale.com/blog/video-conferencing-with-postgres"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg text-slide-dark/60 underline hover:text-slide-dark"
+            >
+              Articolo originale: PlanetScale Blog
+            </a>
           </FadeIn>
+        ) : undefined
+      }
+    >
+      <SlideTitle>Ricetta Bonus: Video Call via PostgreSQL</SlideTitle>
+      <SlideSubtitle>
+        <strong>Ricetta #6: La Pazzia dello Chef</strong> — Sì, ho implementato
+        una videochiamata usando PostgreSQL. No, non sto scherzando.
+      </SlideSubtitle>
 
-          <FadeIn delay={500}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Neque porro</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Quisquam est qui dolorem ipsum quia dolor sit amet consectetur.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={800}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Ut enim</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Ad minima veniam, quis nostrum exercitationem ullam corporis
-                suscipit.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={1100}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Quis autem</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Vel eum iure reprehenderit qui in ea voluptate velit esse quam
-                nihil.
-              </p>
-            </div>
-          </FadeIn>
-        </div>
+      {isVisible(1) && (
+        <FadeIn delay={200} className="mt-10">
+          <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
+            <li>
+              <HighlightText>LISTEN / NOTIFY</HighlightText> come canale di
+              segnalazione in tempo reale
+            </li>
+            <li>
+              <HighlightText>Large Objects</HighlightText> per trasferire frame
+              video e audio chunks
+            </li>
+            <li>
+              <HighlightText>UNLOGGED tables</HighlightText> — tabelle senza
+              Write-Ahead Log: niente scrittura su disco = velocità massima (i
+              dati si perdono al crash, ma per frame video va benissimo)
+            </li>
+          </ul>
+        </FadeIn>
       )}
     </SplitTemplate>
   )
