@@ -15,7 +15,7 @@ export function Slide4() {
     <MainTemplate>
       <SlideTitle>pgvector: Ricerca Semantica</SlideTitle>
       <SlideSubtitle>
-        <strong>Ricetta #3: Il buongustaio</strong> — Non cerchi per parola
+        <strong>Ricetta #3: Il Buongustaio</strong> — Non cerchi per parola
         esatta, ma per significato. PostgreSQL con pgvector confronta embedding
         vettoriali e trova i documenti semanticamente più vicini alla tua query.
       </SlideSubtitle>

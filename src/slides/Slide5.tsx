@@ -13,9 +13,12 @@ export function Slide5() {
 
   return (
     <MainTemplate>
-      <SlideTitle>TODO</SlideTitle>
+      <SlideTitle>Apache AGE: Grafi nel Database</SlideTitle>
       <SlideSubtitle>
-        <strong>Ricetta #4: TODO</strong> — TODO
+        <strong>Ricetta #4: L&apos;Albero Biologico</strong> — Chi dipende da
+        chi? Chi lavora con cosa? Le relazioni tra entità si navigano meglio
+        come grafi. Apache AGE porta Cypher (il linguaggio di Neo4j)
+        direttamente dentro PostgreSQL.
       </SlideSubtitle>
 
       {isVisible(1) && (
@@ -24,7 +27,25 @@ export function Slide5() {
             Ingredienti
           </h3>
           <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
-            <li>TODO</li>
+            <li>
+              <HighlightText>Apache AGE</HighlightText> — estensione che
+              aggiunge un motore a grafi dentro PostgreSQL
+            </li>
+            <li>
+              <HighlightText>Cypher</HighlightText> — linguaggio dichiarativo
+              per descrivere pattern di nodi e relazioni (come SQL, ma per
+              grafi)
+            </li>
+            <li>
+              <HighlightText>MATCH ... CREATE</HighlightText> — creazione di
+              nodi (:Developer, :Stack, :Project) e relazioni (:USES,
+              :WORKS_ON, :DEPENDS_ON)
+            </li>
+            <li>
+              <HighlightText>{"[:DEPENDS_ON*1..3]"}</HighlightText> — traversal
+              variabile: segui catene di dipendenze fino a 3 livelli di
+              profondità
+            </li>
           </ul>
         </FadeIn>
       )}
@@ -35,7 +56,27 @@ export function Slide5() {
             Preparazione
           </h3>
           <ul className="mt-2 list-disc pl-6 space-y-2 text-2xl text-slide-dark">
-            <li>TODO</li>
+            <li>
+              Caricare l&apos;estensione AGE e creare un grafo con nome (
+              <HighlightText>dev_graph</HighlightText>)
+            </li>
+            <li>
+              Popolare il grafo con nodi e relazioni tramite{" "}
+              <HighlightText>CREATE</HighlightText> in Cypher
+            </li>
+            <li>
+              Path query: partendo da un progetto, trovare tutte le dipendenze
+              transitive con{" "}
+              <HighlightText>
+                {"MATCH (p)-[:DEPENDS_ON*1..3]->(dep)"}
+              </HighlightText>
+            </li>
+            <li>
+              Query composita: combinare più{" "}
+              <HighlightText>MATCH</HighlightText> per trovare developer che
+              usano un certo stack E lavorano su progetti che dipendono da un
+              altro progetto
+            </li>
           </ul>
         </FadeIn>
       )}
