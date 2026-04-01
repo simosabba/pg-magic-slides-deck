@@ -1,8 +1,8 @@
 import { createFileRoute, redirect } from "@tanstack/react-router"
 import { SlideContainer } from "../../components/slides"
-import { Slide1, Slide2, Slide3, Slide4 } from "../../slides"
+import { Slide1, Slide2, Slide3, Slide4, Slide5 } from "../../slides"
 
-const TOTAL_SLIDES = 4
+const TOTAL_SLIDES = 5
 
 export const Route = createFileRoute("/s/$slideNumber")({
   beforeLoad: ({ params }) => {
@@ -24,6 +24,7 @@ function SlideRoute() {
       {num === 2 && <Slide2 />}
       {num === 3 && <Slide3 />}
       {num === 4 && <Slide4 />}
+      {num === 5 && <Slide5 />}
     </SlideContainer>
   )
 }

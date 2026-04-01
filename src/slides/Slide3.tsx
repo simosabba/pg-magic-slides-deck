@@ -1,74 +1,119 @@
-import { useState, useCallback } from "react"
-import { SlideTitle } from "../components/slides"
-import { SplitTemplate } from "../templates/SplitTemplate"
-import { Typewriter } from "#/components/effects/Typewriter"
+import { SlideTitle, SlideSubtitle } from "../components/slides"
+import { MainTemplate } from "../templates/MainTemplate"
 import { FadeIn } from "#/components/effects/FadeIn"
 import { HighlightText } from "#/components/effects/HighlightText"
+import { useSlideSteps } from "#/hooks/useSlideSteps"
+import { Button } from "#/components/ui/button"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+} from "#/components/ui/dialog"
+import { CodeEditor } from "#/components/ui-extensions/CodeEditor"
+import {
+  slide3Files,
+  slide3Contents,
+  slide3DefaultFile,
+} from "./code/slide3"
 
 export function Slide3() {
-  const [titleDone, setTitleDone] = useState(false)
-  const handleTitle = useCallback(() => setTitleDone(true), [])
+  const { isVisible } = useSlideSteps(3)
 
   return (
-    <SplitTemplate>
-      <SlideTitle>
-        <Typewriter
-          text="Sed Ut Perspiciatis"
-          delay={70}
-          onComplete={handleTitle}
-        />
-      </SlideTitle>
+    <MainTemplate>
+      <SlideTitle>JSONB: Documenti dentro il Database</SlideTitle>
+      <SlideSubtitle>
+        <strong>Ricetta #2: Il Ragù a Strati</strong> — Una colonna JSONB
+        contiene strutture annidate di profondità arbitraria. PostgreSQL le
+        attraversa, filtra e indicizza nativamente.
+      </SlideSubtitle>
 
-      {titleDone && (
-        <div className="mt-10 grid grid-cols-2 gap-8">
-          <FadeIn delay={200}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Nemo enim</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-                fugit.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={500}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Neque porro</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Quisquam est qui dolorem ipsum quia dolor sit amet consectetur.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={800}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Ut enim</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Ad minima veniam, quis nostrum exercitationem ullam corporis
-                suscipit.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={1100}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Quis autem</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Vel eum iure reprehenderit qui in ea voluptate velit esse quam
-                nihil.
-              </p>
-            </div>
-          </FadeIn>
-        </div>
+      {isVisible(1) && (
+        <FadeIn delay={200} className="mt-10">
+          <h3 className="mb-3 text-xl font-semibold text-slide-dark">
+            Ingredienti
+          </h3>
+          <ul className="space-y-2 text-2xl text-slide-dark">
+            <li>
+              <HighlightText>JSONB</HighlightText> — tipo binario per documenti
+              JSON, con supporto a operatori e indici
+            </li>
+            <li>
+              <HighlightText>{"->"} / {"->>"}</HighlightText> — navigazione nei
+              path annidati (<HighlightText>{"->"}
+              </HighlightText> restituisce JSONB,{" "}
+              <HighlightText>{"->>"}
+              </HighlightText> restituisce text)
+            </li>
+            <li>
+              <HighlightText>@&gt;</HighlightText> — operatore di containment
+              per filtrare array e oggetti
+            </li>
+            <li>
+              <HighlightText>GIN index</HighlightText> — Generalized Inverted
+              Index, indicizza ogni chiave/valore del documento per query
+              efficienti
+            </li>
+          </ul>
+        </FadeIn>
       )}
-    </SplitTemplate>
+
+      {isVisible(2) && (
+        <FadeIn delay={200} className="mt-8">
+          <h3 className="mb-3 text-xl font-semibold text-slide-dark">
+            Preparazione
+          </h3>
+          <ul className="mt-2 space-y-2 text-2xl text-slide-dark">
+            <li>
+              Definire una colonna{" "}
+              <HighlightText>metadata jsonb NOT NULL</HighlightText> sulla
+              tabella
+            </li>
+            <li>
+              Navigare campi nested con la sintassi a frecce:{" "}
+              <HighlightText>{"metadata->'repo'->>'name'"}</HighlightText>
+            </li>
+            <li>
+              Filtrare array con containment:{" "}
+              <HighlightText>
+                {"metadata->'tags' @> '[\"postgis\"]'::jsonb"}
+              </HighlightText>
+            </li>
+            <li>
+              Attraversare strutture profonde:{" "}
+              <HighlightText>
+                {"metadata->'ci'->'pipeline'->>'status'"}
+              </HighlightText>
+            </li>
+            <li>
+              Creare un <HighlightText>indice GIN</HighlightText> sulla colonna
+              per rendere tutte queste query performanti senza indici dedicati
+              per ogni path
+            </li>
+          </ul>
+        </FadeIn>
+      )}
+      {isVisible(3) && (
+        <FadeIn delay={200} className="mt-8 flex justify-center">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>SHOW ME THE CODE</Button>
+            </DialogTrigger>
+          <DialogContent
+            showCloseButton
+            closeButtonClassName="text-white hover:bg-white/10 hover:text-white"
+            className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
+          >
+            <CodeEditor
+              files={slide3Files}
+              contents={slide3Contents}
+              defaultSelectedFile={slide3DefaultFile}
+              className="h-full w-full rounded-xl border-0"
+            />
+          </DialogContent>
+          </Dialog>
+        </FadeIn>
+      )}
+    </MainTemplate>
   )
 }
