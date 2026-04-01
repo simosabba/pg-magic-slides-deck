@@ -3,6 +3,18 @@ import { MainTemplate } from "../templates/MainTemplate"
 import { FadeIn } from "#/components/effects/FadeIn"
 import { HighlightText } from "#/components/effects/HighlightText"
 import { useSlideSteps } from "#/hooks/useSlideSteps"
+import { Button } from "#/components/ui/button"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+} from "#/components/ui/dialog"
+import { CodeEditor } from "#/components/ui-extensions/CodeEditor"
+import {
+  slide2Files,
+  slide2Contents,
+  slide2DefaultFile,
+} from "./code/slide2"
 
 export function Slide2() {
   const { isVisible } = useSlideSteps(2)
@@ -68,6 +80,29 @@ export function Slide2() {
           </ul>
         </FadeIn>
       )}
+      <div className="mt-auto pb-4">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              className="border-[var(--color-slide-dark)] text-[var(--color-slide-dark)] hover:bg-[var(--color-slide-dark)] hover:text-white"
+            >
+              SHOW ME THE CODE
+            </Button>
+          </DialogTrigger>
+          <DialogContent
+            showCloseButton
+            className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
+          >
+            <CodeEditor
+              files={slide2Files}
+              contents={slide2Contents}
+              defaultSelectedFile={slide2DefaultFile}
+              className="h-full w-full rounded-xl border-0"
+            />
+          </DialogContent>
+        </Dialog>
+      </div>
     </MainTemplate>
   )
 }
