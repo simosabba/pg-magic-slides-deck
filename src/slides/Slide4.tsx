@@ -15,7 +15,7 @@ export function Slide4() {
     <MainTemplate>
       <SlideTitle>pgvector: Ricerca Semantica</SlideTitle>
       <SlideSubtitle>
-        <strong>Ricetta #3: Il Sommelier</strong> — Non cerchi per parola
+        <strong>Ricetta #3: Il buongustaio</strong> — Non cerchi per parola
         esatta, ma per significato. PostgreSQL con pgvector confronta embedding
         vettoriali e trova i documenti semanticamente più vicini alla tua query.
       </SlideSubtitle>
@@ -62,9 +62,8 @@ export function Slide4() {
               <HighlightText>{"<->"}</HighlightText>) e limitare i risultati
             </li>
             <li>
-              Hybrid search: combinare{" "}
-              <HighlightText>ORDER BY</HighlightText> vettoriale con{" "}
-              <HighlightText>JOIN</HighlightText> e{" "}
+              Hybrid search: combinare <HighlightText>ORDER BY</HighlightText>{" "}
+              vettoriale con <HighlightText>JOIN</HighlightText> e{" "}
               <HighlightText>WHERE</HighlightText> su colonne relazionali (es.
               filtrare per stack tecnologico e ordinare per similarità
               semantica)
