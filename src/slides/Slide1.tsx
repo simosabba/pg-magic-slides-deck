@@ -1,20 +1,21 @@
-import { useState, useCallback } from "react"
 import { SlideTitle } from "../components/slides"
 import { TitleTemplate } from "../templates/TitleTemplate"
 import { FadeIn } from "#/components/effects/FadeIn"
 import { Typewriter } from "#/components/effects/Typewriter"
+import { useSlideSteps } from "#/hooks/useSlideSteps"
 
 export function Slide1() {
-  const [line1Done, setLine1Done] = useState(false)
-  const handleLine1 = useCallback(() => setLine1Done(true), [])
+  const { isVisible } = useSlideSteps(2)
 
   return (
     <TitleTemplate>
-      <SlideTitle>
-        <Typewriter text="pg_magic" delay={90} onComplete={handleLine1} />
-      </SlideTitle>
+      {isVisible(1) && (
+        <SlideTitle>
+          <Typewriter text="pg_magic" delay={90} />
+        </SlideTitle>
+      )}
 
-      {line1Done && (
+      {isVisible(2) && (
         <FadeIn delay={300} className="mt-10">
           <p className="max-w-2xl text-2xl leading-relaxed text-black/70">
             Le creature magiche di PostgreSQL che non conosci (ancora) —
