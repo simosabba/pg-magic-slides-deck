@@ -1,4 +1,4 @@
-import { FadeIn } from "#/components/ui/FadeIn"
+import { FadeIn } from "#/components/effects/FadeIn"
 import { DarkTemplate } from "../templates/DarkTemplate"
 
 export function Slide4() {

@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react"
 import { SlideTitle } from "../components/slides"
 import { TitleTemplate } from "../templates/TitleTemplate"
-import { FadeIn } from "#/components/ui/FadeIn"
-import { Typewriter } from "#/components/ui/Typewriter"
+import { FadeIn } from "#/components/effects/FadeIn"
+import { Typewriter } from "#/components/effects/Typewriter"
 
 export function Slide1() {
   const [line1Done, setLine1Done] = useState(false)
