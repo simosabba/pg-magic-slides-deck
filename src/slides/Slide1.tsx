@@ -18,8 +18,8 @@ export function Slide1() {
       {isVisible(2) && (
         <FadeIn delay={300} className="mt-10">
           <p className="max-w-2xl text-2xl leading-relaxed text-black/70">
-            Le creature magiche di PostgreSQL che non conosci (ancora) —
-            addomesticate con Drizzle ORM
+            Le ricette segrete di PostgreSQL che non trovi sul menu —
+            cucinate con Drizzle ORM
           </p>
           <p className="mt-4 text-lg text-black/50">
             by{" "}

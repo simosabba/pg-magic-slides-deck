@@ -10,6 +10,6 @@ export function HighlightText({
   className = "",
 }: HighlightTextProps) {
   return (
-    <span className={`bg-black px-1 text-white ${className}`}>{children}</span>
+    <span className={`bg-[var(--color-slide-dark)] px-1 text-white ${className}`}>{children}</span>
   )
 }
