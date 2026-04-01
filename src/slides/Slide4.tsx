@@ -1,74 +1,65 @@
-import { useState, useCallback } from "react"
-import { SlideTitle } from "../components/slides"
-import { SplitTemplate } from "../templates/SplitTemplate"
-import { Typewriter } from "#/components/effects/Typewriter"
+import { SlideTitle, SlideSubtitle } from "../components/slides"
+import { MainTemplate } from "../templates/MainTemplate"
 import { FadeIn } from "#/components/effects/FadeIn"
 import { HighlightText } from "#/components/effects/HighlightText"
+import { useSlideSteps } from "#/hooks/useSlideSteps"
+import { Button } from "#/components/ui/button"
+import { Dialog, DialogTrigger, DialogContent } from "#/components/ui/dialog"
+import { CodeEditor } from "#/components/ui-extensions/CodeEditor"
+import { slide4Files, slide4Contents, slide4DefaultFile } from "./code/slide4"
 
 export function Slide4() {
-  const [titleDone, setTitleDone] = useState(false)
-  const handleTitle = useCallback(() => setTitleDone(true), [])
+  const { isVisible } = useSlideSteps(3)
 
   return (
-    <SplitTemplate>
-      <SlideTitle>
-        <Typewriter
-          text="Sed Ut Perspiciatis"
-          delay={70}
-          onComplete={handleTitle}
-        />
-      </SlideTitle>
+    <MainTemplate>
+      <SlideTitle>TODO</SlideTitle>
+      <SlideSubtitle>
+        <strong>Ricetta #3: TODO</strong> — TODO
+      </SlideSubtitle>
 
-      {titleDone && (
-        <div className="mt-10 grid grid-cols-2 gap-8">
-          <FadeIn delay={200}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Nemo enim</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-                fugit.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={500}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Neque porro</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Quisquam est qui dolorem ipsum quia dolor sit amet consectetur.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={800}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Ut enim</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Ad minima veniam, quis nostrum exercitationem ullam corporis
-                suscipit.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={1100}>
-            <div className="rounded-lg border border-black/10 p-6">
-              <h3 className="mb-3 text-xl font-bold text-black">
-                <HighlightText>Quis autem</HighlightText>
-              </h3>
-              <p className="text-lg text-black/70">
-                Vel eum iure reprehenderit qui in ea voluptate velit esse quam
-                nihil.
-              </p>
-            </div>
-          </FadeIn>
-        </div>
+      {isVisible(1) && (
+        <FadeIn delay={200} className="mt-10">
+          <h3 className="mb-3 text-xl font-semibold text-slide-dark">
+            Ingredienti
+          </h3>
+          <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
+            <li>TODO</li>
+          </ul>
+        </FadeIn>
       )}
-    </SplitTemplate>
+
+      {isVisible(2) && (
+        <FadeIn delay={200} className="mt-8">
+          <h3 className="mb-3 text-xl font-semibold text-slide-dark">
+            Preparazione
+          </h3>
+          <ul className="mt-2 list-disc pl-6 space-y-2 text-2xl text-slide-dark">
+            <li>TODO</li>
+          </ul>
+        </FadeIn>
+      )}
+      {isVisible(3) && (
+        <FadeIn delay={200} className="mt-8 flex justify-center">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>SHOW ME THE CODE</Button>
+            </DialogTrigger>
+            <DialogContent
+              showCloseButton
+              closeButtonClassName="text-white hover:bg-white/10 hover:text-white top-[2px] right-[2px]"
+              className="h-[90vh] w-[90vw] max-w-none sm:max-w-none p-0 overflow-hidden"
+            >
+              <CodeEditor
+                files={slide4Files}
+                contents={slide4Contents}
+                defaultSelectedFile={slide4DefaultFile}
+                className="h-full w-full rounded-xl border-0"
+              />
+            </DialogContent>
+          </Dialog>
+        </FadeIn>
+      )}
+    </MainTemplate>
   )
 }
