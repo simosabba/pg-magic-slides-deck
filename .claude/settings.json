@@ -2,6 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(pnpm build:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/simonesabba/repo/personal/pg-magic-slides-deck/src/components"
     ]
   }
 }

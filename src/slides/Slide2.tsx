@@ -1,11 +1,9 @@
 import { useState, useCallback } from "react"
-import {
-  SlideTitle,
-  Typewriter,
-  FadeIn,
-  HighlightText,
-} from "../components/slides"
+import { SlideTitle } from "../components/slides"
 import { MainTemplate } from "../templates/MainTemplate"
+import { Typewriter } from "#/components/ui/Typewriter"
+import { FadeIn } from "#/components/ui/FadeIn"
+import { HighlightText } from "#/components/ui/HighlightText"
 
 export function Slide2() {
   const [titleDone, setTitleDone] = useState(false)
