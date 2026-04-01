@@ -13,9 +13,12 @@ export function Slide6() {
 
   return (
     <MainTemplate>
-      <SlideTitle>TODO</SlideTitle>
+      <SlideTitle>PostGIS: Ricerca Geospaziale</SlideTitle>
       <SlideSubtitle>
-        <strong>Ricetta #5: TODO</strong> — TODO
+        <strong>Ricetta #5: Il Km Zero</strong> — Trovare gli ingredienti più
+        vicini al ristorante. PostGIS aggiunge il tipo geography a PostgreSQL
+        per cercare per prossimità, calcolare distanze reali sul globo e
+        filtrare entro un raggio.
       </SlideSubtitle>
 
       {isVisible(1) && (
@@ -24,7 +27,24 @@ export function Slide6() {
             Ingredienti
           </h3>
           <ul className="list-disc pl-6 space-y-2 text-2xl text-slide-dark">
-            <li>TODO</li>
+            <li>
+              <HighlightText>PostGIS</HighlightText> — estensione geospaziale:
+              aggiunge tipi, indici e funzioni per dati geografici
+            </li>
+            <li>
+              <HighlightText>geography(point, 4326)</HighlightText> — tipo che
+              rappresenta un punto sulla Terra (lat/lon, sistema WGS84)
+            </li>
+            <li>
+              <HighlightText>ST_DWithin(a, b, metri)</HighlightText> —
+              restituisce true se due geometrie sono entro una distanza in metri
+              (usa indice spaziale)
+            </li>
+            <li>
+              <HighlightText>ST_Distance(a, b)</HighlightText> — calcola la
+              distanza reale in metri tra due punti sul globo (geodetica, non
+              planare)
+            </li>
           </ul>
         </FadeIn>
       )}
@@ -35,7 +55,28 @@ export function Slide6() {
             Preparazione
           </h3>
           <ul className="mt-2 list-disc pl-6 space-y-2 text-2xl text-slide-dark">
-            <li>TODO</li>
+            <li>
+              Definire colonne{" "}
+              <HighlightText>geography(point, 4326)</HighlightText> per le
+              posizioni di hackathon e developer
+            </li>
+            <li>
+              Proximity search: filtrare con{" "}
+              <HighlightText>ST_DWithin</HighlightText> per trovare developer
+              entro un raggio (es. 150km) dall&apos;evento
+            </li>
+            <li>
+              Ordinamento per distanza: usare{" "}
+              <HighlightText>ST_Distance</HighlightText> in{" "}
+              <HighlightText>ORDER BY</HighlightText> per mostrare i più vicini
+              per primi
+            </li>
+            <li>
+              Query combinata: aggiungere{" "}
+              <HighlightText>JOIN</HighlightText> su stack richiesto
+              dall&apos;hackathon per filtrare developer che sono vicini E hanno
+              la competenza giusta
+            </li>
           </ul>
         </FadeIn>
       )}
