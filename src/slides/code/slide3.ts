@@ -13,25 +13,25 @@ export const slide3Files: FileNode[] = [
 ]
 
 export const slide3Contents: Record<string, string> = {
-  "src/schema.ts": `import { index, jsonb, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
-import { sql } from 'drizzle-orm';
+  "src/schema.ts": `import { index, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { sql } from "drizzle-orm"
 
-export const projectDocs = pgTable('project_docs', {
-  id: uuid('id').primaryKey(),
-  title: text('title').notNull(),
-  content: text('content').notNull(),
-  metadata: jsonb('metadata').notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull()
+export const projectDocs = pgTable("project_docs", {
+  id: uuid("id").primaryKey(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  metadata: jsonb("metadata").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull()
 }, (table) => [
-  index('idx_project_docs_repo_name').on(sql\`(\${table.metadata}->'repo'->>'name')\`),
-]);`,
+  index("idx_project_docs_repo_name").on(sql\`(\${table.metadata}->'repo'->>'name')\`),
+])`,
 
-  "src/main.ts": `import { sql } from 'drizzle-orm';
-import { db } from '../../db/drizzle';
-import { projectDocs } from '../../db/schema/02-jsonb';
+  "src/main.ts": `import { sql } from "drizzle-orm"
+import { db } from "../../db/drizzle"
+import { projectDocs } from "../../db/schema/02-jsonb"
 
 async function main(): Promise<void> {
-  console.log('\\nJSONB nested query: repo.name = hackmap');
+  console.log("\\nJSONB nested query: repo.name = hackmap")
   const byRepo = await db
     .select({
       id: projectDocs.id,
@@ -39,10 +39,10 @@ async function main(): Promise<void> {
       repoName: sql<string>\`\${projectDocs.metadata}->'repo'->>'name'\`,
     })
     .from(projectDocs)
-    .where(sql\`\${projectDocs.metadata}->'repo'->>'name' = 'hackmap'\`);
-  console.table(byRepo);
+    .where(sql\`\${projectDocs.metadata}->'repo'->>'name' = 'hackmap'\`)
+  console.table(byRepo)
 
-  console.log('\\nJSONB array filter: tags contains postgis');
+  console.log("\\nJSONB array filter: tags contains postgis")
   const byTag = await db
     .select({
       id: projectDocs.id,
@@ -50,10 +50,10 @@ async function main(): Promise<void> {
       tags: sql<string>\`\${projectDocs.metadata}->'tags'\`,
     })
     .from(projectDocs)
-    .where(sql\`\${projectDocs.metadata}->'tags' @> '["postgis"]'::jsonb\`);
-  console.table(byTag);
+    .where(sql\`\${projectDocs.metadata}->'tags' @> '["postgis"]'::jsonb\`)
+  console.table(byTag)
 
-  console.log('\\nJSONB deep filter: ci.pipeline.status = green');
+  console.log("\\nJSONB deep filter: ci.pipeline.status = green")
   const byPipeline = await db
     .select({
       id: projectDocs.id,
@@ -61,8 +61,8 @@ async function main(): Promise<void> {
       pipelineStatus: sql<string>\`\${projectDocs.metadata}->'ci'->'pipeline'->>'status'\`,
     })
     .from(projectDocs)
-    .where(sql\`\${projectDocs.metadata}->'ci'->'pipeline'->>'status' = 'green'\`);
-  console.table(byPipeline);
+    .where(sql\`\${projectDocs.metadata}->'ci'->'pipeline'->>'status' = 'green'\`)
+  console.table(byPipeline)
 }`,
 }
 

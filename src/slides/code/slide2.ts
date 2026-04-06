@@ -17,26 +17,26 @@ export const slide2Files: FileNode[] = [
 ]
 
 export const slide2Contents: Record<string, string> = {
-  "src/bus/publisher.ts": `import { sql } from "drizzle-orm";
-import { db } from "../../db/drizzle";
-import { events } from "../../db/schema/01-events";
+  "src/bus/publisher.ts": `import { sql } from "drizzle-orm"
+import { db } from "../../db/drizzle"
+import { events } from "../../db/schema/01-events"
 
-const CHANNEL = "dev_events";
+const CHANNEL = "dev_events"
 
 type BusEvent = {
-  type: "project.updated" | "developer.joined";
-  projectId?: string;
-  developerId?: string;
-  at: string;
-};
+  type: "project.updated" | "developer.joined"
+  projectId?: string
+  developerId?: string
+  at: string
+}
 
 async function publish(event: BusEvent): Promise<void> {
-  const payload = JSON.stringify(event);
+  const payload = JSON.stringify(event)
 
-  await db.insert(events).values({ channel: CHANNEL, payload: event });
-  await db.execute(sql\`SELECT pg_notify(\${CHANNEL}, \${payload})\`);
+  await db.insert(events).values({ channel: CHANNEL, payload: event })
+  await db.execute(sql\`SELECT pg_notify(\${CHANNEL}, \${payload})\`)
 
-  console.log("Published event:", event);
+  console.log("Published event:", event)
 }
 
 async function main(): Promise<void> {
@@ -44,62 +44,62 @@ async function main(): Promise<void> {
     type: "project.updated",
     projectId: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
     at: new Date().toISOString(),
-  });
+  })
 
   await publish({
     type: "developer.joined",
     developerId: "55555555-5555-5555-5555-555555555555",
     at: new Date().toISOString(),
-  });
+  })
 }`,
 
-  "src/bus/subscriber.ts": `import { pool } from "../../db/client";
+  "src/bus/subscriber.ts": `import { pool } from "../../db/client"
 
-const CHANNEL = "dev_events";
+const CHANNEL = "dev_events"
 
 async function main(): Promise<void> {
   // LISTEN requires a dedicated connection — drizzle uses a pool
   // and releases connections, so we hold one from the shared pool.
-  const client = await pool.connect();
+  const client = await pool.connect()
 
   client.on("notification", (msg) => {
     if (msg.channel !== CHANNEL) {
-      return;
+      return
     }
 
-    const payload = msg.payload ?? "";
+    const payload = msg.payload ?? ""
     try {
-      console.log("[event]", JSON.parse(payload));
+      console.log("[event]", JSON.parse(payload))
     } catch {
-      console.log("[event-raw]", payload);
+      console.log("[event-raw]", payload)
     }
-  });
+  })
 
-  await client.query(\`LISTEN \${CHANNEL}\`);
-  console.log(\`Listening on channel: \${CHANNEL}\`);
+  await client.query(\`LISTEN \${CHANNEL}\`)
+  console.log(\`Listening on channel: \${CHANNEL}\`)
 }`,
 
-  "src/db/client.ts": `import 'dotenv/config';
-import { Pool } from 'pg';
-import { drizzle } from 'drizzle-orm/node-postgres';
+  "src/db/client.ts": `import "dotenv/config"
+import { Pool } from "pg"
+import { drizzle } from "drizzle-orm/node-postgres"
 
-const DATABASE_URL = process.env.DATABASE_URL ?? 'postgres://postgres:postgres@localhost:5432/pg_magic';
+const DATABASE_URL = process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/pg_magic"
 
 export const pool = new Pool({
   connectionString: DATABASE_URL,
   max: 10
-});
+})
 
-export const db = drizzle(pool);`,
+export const db = drizzle(pool)`,
 
-  "src/db/schema.ts": `import { uuid, jsonb, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+  "src/db/schema.ts": `import { uuid, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
-export const events = pgTable('events', {
-  id: uuid('id').primaryKey(),
-  channel: text('channel').notNull(),
-  payload: jsonb('payload').notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull()
-});`,
+export const events = pgTable("events", {
+  id: uuid("id").primaryKey(),
+  channel: text("channel").notNull(),
+  payload: jsonb("payload").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull()
+})`,
 }
 
 export const slide2DefaultFile = "src/bus/publisher.ts"

@@ -32,7 +32,7 @@ export const slide6Contents: Record<string, string> = {
         starts_at = EXCLUDED.starts_at,
         required_stack_id = EXCLUDED.required_stack_id,
         location = EXCLUDED.location
-  \`);
+  \`)
 
   await query(\`
     INSERT INTO developer_locations (developer_id, location, updated_at) VALUES
@@ -44,22 +44,22 @@ export const slide6Contents: Record<string, string> = {
     ON CONFLICT (developer_id) DO UPDATE
     SET location = EXCLUDED.location,
         updated_at = EXCLUDED.updated_at
-  \`);
+  \`)
 
-  console.log("Seed completed.");`,
+  console.log("Seed completed.")`,
 
-  "src/main.ts": `import { and, eq, sql } from "drizzle-orm";
-import { db } from "../../db/drizzle";
-import { developers, developerStacks, stacks } from "../../db/schema/00-core";
-import { developerLocations, hackathons } from "../../db/schema/05-geo";
+  "src/main.ts": `import { and, eq, sql } from "drizzle-orm"
+import { db } from "../../db/drizzle"
+import { developers, developerStacks, stacks } from "../../db/schema/00-core"
+import { developerLocations, hackathons } from "../../db/schema/05-geo"
 
-const HACKATHON_NAME = "Punkaton 2026";
-const RADIUS_METERS = 150_000;
+const HACKATHON_NAME = "Punkaton 2026"
+const RADIUS_METERS = 150_000
 
 async function main(): Promise<void> {
   console.log(
     \`\\nDevelopers within \${RADIUS_METERS / 1000}km of \${HACKATHON_NAME}:\`,
-  );
+  )
   const nearby = await db
     .select({
       developer: developers.name,
@@ -75,10 +75,10 @@ async function main(): Promise<void> {
     )
     .orderBy(
       sql\`ST_Distance(\${developerLocations.location}, \${hackathons.location})\`,
-    );
-  console.table(nearby);
+    )
+  console.table(nearby)
 
-  console.log("\\nNearby developers with required stack match:");
+  console.log("\\nNearby developers with required stack match:")
   const matching = await db
     .select({
       developer: developers.name,
@@ -101,8 +101,8 @@ async function main(): Promise<void> {
     )
     .orderBy(
       sql\`ST_Distance(\${developerLocations.location}, \${hackathons.location})\`,
-    );
-  console.table(matching);
+    )
+  console.table(matching)
 }`,
 }
 
